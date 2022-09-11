@@ -1,6 +1,7 @@
 package ml.windleaf.craftingexplode.events;
 
 import ml.windleaf.craftingexplode.CraftingExplode;
+import ml.windleaf.craftingexplode.process.ExplodeProcess;
 import ml.windleaf.craftingexplode.process.ScheduledTask;
 import ml.windleaf.craftingexplode.process.warning.WarningThread;
 import org.bukkit.Location;
@@ -25,11 +26,11 @@ public class PlayerOpenTable implements Listener {
       String uuid = human.getUniqueId().toString();
       Location location = e.getInventory().getLocation();
       plugin.warningList.addWarningThread(uuid, new WarningThread(this.plugin, human, this.plugin.getConfig().getInt("process.delay")));
-      plugin.process.addTask(uuid, new ScheduledTask(() -> {
+      plugin.process.addProcess(uuid, new ExplodeProcess(new ScheduledTask(() -> {
         assert location != null;
         human.getWorld().createExplosion(location, this.plugin.getConfig().getInt("process.power"));
         plugin.process.cancelTask(uuid);
-      }));
+      }), location));
     }
   }
 }

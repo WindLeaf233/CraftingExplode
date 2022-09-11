@@ -1,25 +1,27 @@
 package ml.windleaf.craftingexplode.process;
 
 import ml.windleaf.craftingexplode.CraftingExplode;
+import org.bukkit.Location;
 
 import java.util.HashMap;
 
 public class PlayerProcess {
   private final CraftingExplode plugin;
-  private final HashMap<String, ScheduledTask> processes = new HashMap<>();
+  private final HashMap<String, ExplodeProcess> processes = new HashMap<>();
 
   public PlayerProcess(CraftingExplode plugin) {
     this.plugin = plugin;
   }
 
   public ScheduledTask getTask(String uuid) {
-    return this.processes.getOrDefault(uuid, null);
+    ExplodeProcess process = this.processes.getOrDefault(uuid, null);
+    return process == null ? null : process.getTask();
   }
 
-  public void addTask(String uuid, ScheduledTask task) {
+  public void addProcess(String uuid, ExplodeProcess process) {
     if (!this.isTaskRunning(uuid)) {
-      this.processes.put(uuid, task);
-      task.runTaskLater(this.plugin, plugin.getConfig().getLong("process.delay"));
+      this.processes.put(uuid, process);
+      process.getTask().runTaskLater(this.plugin, plugin.getConfig().getLong("process.delay"));
     }
   }
 
@@ -32,5 +34,18 @@ public class PlayerProcess {
       this.getTask(uuid).cancel();
       this.processes.remove(uuid);
     }
+  }
+
+  public String cancelTask(Location location) {
+    String finalUUID = "";
+    for (String uuid: this.processes.keySet()) {
+      ExplodeProcess process = this.processes.get(uuid);
+      if (process.getLocation().equals(location)) {
+        finalUUID = uuid;
+        break;
+      }
+    }
+    this.cancelTask(finalUUID);
+    return finalUUID;
   }
 }
