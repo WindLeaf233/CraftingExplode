@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerCloseTable implements Listener {
   private final CraftingExplode plugin;
@@ -15,7 +16,7 @@ public class PlayerCloseTable implements Listener {
   }
 
   @EventHandler
-  public void onInventoryClose(InventoryCloseEvent e) {
+  public void onInventoryClose(@NotNull InventoryCloseEvent e) {
     if (e.getInventory().getType() == InventoryType.WORKBENCH) {
       HumanEntity human = e.getPlayer();
       String uuid = human.getUniqueId().toString();

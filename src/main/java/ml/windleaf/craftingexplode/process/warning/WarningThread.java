@@ -5,6 +5,7 @@ import ml.windleaf.craftingexplode.utils.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class WarningThread extends Thread {
     this.time = time;
   }
 
-  private String map(String message, Location location) {
+  private String map(String message, @NotNull Location location) {
     final String[] copy = { message };
     HashMap<String, Object> map = new HashMap<>();
     map.put("{time}", this.time);

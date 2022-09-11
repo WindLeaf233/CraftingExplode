@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class PlayerBreakTable implements Listener {
   }
 
   @EventHandler
-  public void onBlockBreak(BlockBreakEvent e) {
+  public void onBlockBreak(@NotNull BlockBreakEvent e) {
     Block block = e.getBlock();
     if (block.getType() == Material.CRAFTING_TABLE) {
       Location location = block.getLocation();
