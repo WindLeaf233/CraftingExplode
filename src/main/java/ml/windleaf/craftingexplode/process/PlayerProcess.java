@@ -24,7 +24,7 @@ public class PlayerProcess {
   }
 
   public boolean isTaskRunning(String uuid) {
-    return this.getTask(uuid) != null;
+    return this.processes.containsKey(uuid);
   }
 
   public void cancelTask(String uuid) {

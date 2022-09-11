@@ -19,6 +19,7 @@ public class PlayerCloseTable implements Listener {
     if (e.getInventory().getType() == InventoryType.WORKBENCH) {
       HumanEntity human = e.getPlayer();
       String uuid = human.getUniqueId().toString();
+      plugin.warningList.cancel(uuid);
       plugin.process.cancelTask(uuid);
     }
   }
