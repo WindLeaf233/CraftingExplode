@@ -54,7 +54,7 @@ public class CraftingExplodeCommand implements CommandExecutor, TabCompleter {
       else error();
     }
     else error();
-    return false;
+    return true;
   }
 
   private void error() {
