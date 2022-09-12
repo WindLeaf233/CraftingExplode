@@ -47,8 +47,10 @@ public class CraftingExplodeCommand implements CommandExecutor, TabCompleter {
         FileConfiguration cf = plugin.getConfig();
 
         if (map.containsKey(path)) {
+          Object previous = cf.get(path);
           cf.set(path, map.get(path).apply(value));
           plugin.saveConfig();
+          sender.sendMessage(ChatUtil.translateColor(String.format("&a成功更改 &6%s&a: &e%s &a-> &b%s&a!", path, previous, value)));
         } else sender.sendMessage(ChatUtil.translateColor("&c没有这个路径!"));
       }
       else error();
