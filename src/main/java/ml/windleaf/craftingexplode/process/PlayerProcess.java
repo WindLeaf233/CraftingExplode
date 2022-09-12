@@ -18,11 +18,10 @@ public class PlayerProcess {
     return process == null ? null : process.getTask();
   }
 
-  public void addProcess(String uuid, ExplodeProcess process) {
+  public void addProcess(String uuid, ExplodeProcess process, Long delay) {
     if (!this.isTaskRunning(uuid)) {
       this.processes.put(uuid, process);
-      process.getTask().runTaskLater(this.plugin,
-              plugin.getConfig().getLong("process.delay") / 1000 * 20); // ticks
+      process.getTask().runTaskLater(this.plugin, delay / 1000 * 20); // ticks
     }
   }
 

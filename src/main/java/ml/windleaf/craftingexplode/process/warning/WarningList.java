@@ -7,6 +7,7 @@ public class WarningList {
 
   public void addWarningThread(String uuid, WarningThread thread) {
     this.list.put(uuid, thread);
+    thread.start();
   }
 
   public boolean isThreadRunning(String uuid) {

@@ -4,6 +4,8 @@ import ml.windleaf.craftingexplode.CraftingExplode;
 import ml.windleaf.craftingexplode.process.ExplodeProcess;
 import ml.windleaf.craftingexplode.process.ScheduledTask;
 import ml.windleaf.craftingexplode.process.warning.WarningThread;
+import ml.windleaf.craftingexplode.utils.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
@@ -26,12 +28,15 @@ public class PlayerOpenTable implements Listener {
       HumanEntity human = e.getPlayer();
       String uuid = human.getUniqueId().toString();
       Location location = e.getInventory().getLocation();
-      plugin.warningList.addWarningThread(uuid, new WarningThread(this.plugin, human, this.plugin.getConfig().getInt("process.delay")));
-      plugin.process.addProcess(uuid, new ExplodeProcess(new ScheduledTask(() -> {
-        assert location != null;
-        human.getWorld().createExplosion(location, this.plugin.getConfig().getInt("process.power"));
-        plugin.process.cancelTask(uuid);
-      }), location));
+      long delay = plugin.getConfig().getLong("process.delay");
+      if (delay >= 0) {
+        plugin.warningList.addWarningThread(uuid, new WarningThread(this.plugin, human, delay));
+        plugin.process.addProcess(uuid, new ExplodeProcess(new ScheduledTask(() -> {
+          assert location != null;
+          human.getWorld().createExplosion(location, this.plugin.getConfig().getInt("process.power"));
+          plugin.process.cancelTask(uuid);
+        }), location), delay);
+      } else Bukkit.getConsoleSender().sendMessage(ChatUtil.translateColor("&c爆炸延时 &6(process.delay) &c不能小于零!"));
     }
   }
 }

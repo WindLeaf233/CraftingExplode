@@ -13,9 +13,9 @@ import java.util.Objects;
 public class WarningThread extends Thread {
   private final CraftingExplode plugin;
   private final HumanEntity human;
-  private Integer time;
+  private Long time;
 
-  public WarningThread(CraftingExplode plugin, HumanEntity human, Integer time) {
+  public WarningThread(CraftingExplode plugin, HumanEntity human, Long time) {
     this.plugin = plugin;
     this.human = human;
     this.time = time;
@@ -35,7 +35,7 @@ public class WarningThread extends Thread {
 
   @Override
   public void run() {
-    while (time != 0) {
+    while (time > 0) {
       try {
         boolean soundWarning = plugin.getConfig().getBoolean("warning.tick-sound");
         String message = plugin.getConfig().getString("warning.message");
@@ -44,8 +44,8 @@ public class WarningThread extends Thread {
         if (soundWarning) human.getWorld().playSound(location, Sound.BLOCK_DISPENSER_FAIL, 1.0F, 1.0F);
         if (!Objects.equals(message, "")) human.sendMessage(ChatUtil.translateColor(map(message, location)));
 
-        Thread.sleep(1000L);
-        time--;
+        Thread.sleep(500L);
+        time = time - 500L;
       } catch (Exception e) {
         e.printStackTrace();
       }
