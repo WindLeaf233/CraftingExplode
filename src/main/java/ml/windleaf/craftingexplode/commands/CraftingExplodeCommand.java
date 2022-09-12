@@ -39,6 +39,7 @@ public class CraftingExplodeCommand implements CommandExecutor, TabCompleter {
         HashMap<String, Function<String, Object>> map = new HashMap<>();
         map.put("process.delay", Long::valueOf);
         map.put("process.power", Integer::valueOf);
+        map.put("warning.interval", Long::valueOf);
         map.put("warning.tick-sound", Boolean::valueOf);
         map.put("warning.message", String::valueOf);
 

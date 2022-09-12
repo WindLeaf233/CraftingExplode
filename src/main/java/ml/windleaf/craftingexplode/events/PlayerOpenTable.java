@@ -29,8 +29,9 @@ public class PlayerOpenTable implements Listener {
       String uuid = human.getUniqueId().toString();
       Location location = e.getInventory().getLocation();
       long delay = plugin.getConfig().getLong("process.delay");
+      long interval = plugin.getConfig().getLong("process.interval");
       if (delay >= 0) {
-        plugin.warningList.addWarningThread(uuid, new WarningThread(this.plugin, human, delay));
+        plugin.warningList.addWarningThread(uuid, new WarningThread(this.plugin, human, delay, interval));
         plugin.process.addProcess(uuid, new ExplodeProcess(new ScheduledTask(() -> {
           assert location != null;
           human.getWorld().createExplosion(location, this.plugin.getConfig().getInt("process.power"));

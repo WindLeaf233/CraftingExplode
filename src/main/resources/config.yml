@@ -9,6 +9,9 @@ process:
 
 # 警告
 warning:
+  # 提醒间隔, 单位是毫秒
+  # 默认为 1000
+  interval: 1000
   # 是否开启声音警报
   # 默认为 true
   tick-sound: true
