@@ -29,7 +29,7 @@ public class WarningThread extends Thread {
     map.put("{x}", location.getX());
     map.put("{y}", location.getY());
     map.put("{z}", location.getZ());
-    map.forEach((key, value) -> copy[0] = copy[0].replaceAll(key, value.toString()));
+    map.forEach((key, value) -> copy[0] = copy[0].replace(key, value.toString()));
     return copy[0];
   }
 
