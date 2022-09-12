@@ -24,15 +24,12 @@ public class WarningThread extends Thread {
   }
 
   private String map(String message, @NotNull Location location) {
-    final String[] copy = { message };
-    HashMap<String, Object> map = new HashMap<>();
-    map.put("{time}", this.time);
-    map.put("{player}", this.human.getName());
-    map.put("{x}", location.getX());
-    map.put("{y}", location.getY());
-    map.put("{z}", location.getZ());
-    map.forEach((key, value) -> copy[0] = copy[0].replace(key, value.toString()));
-    return copy[0];
+    return message
+            .replace("{time}", this.time.toString())
+            .replace("{player}", this.human.getName())
+            .replace("{x}", String.valueOf(location.getX()))
+            .replace("{y}", String.valueOf(location.getY()))
+            .replace("{z}", String.valueOf(location.getZ()));
   }
 
   @Override
