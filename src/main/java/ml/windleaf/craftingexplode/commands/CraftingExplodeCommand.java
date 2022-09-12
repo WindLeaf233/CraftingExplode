@@ -76,14 +76,7 @@ public class CraftingExplodeCommand implements CommandExecutor, TabCompleter {
     if (length <= 1) {
       String[] subCommands = {"help", "config"};
       return Arrays.stream(subCommands).filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
-    } else if (length <= 3) {
-      if (args[0].equals("config")) {
-        return Arrays.stream(new String[]{"<path>", "<value>"}).filter(s -> s.startsWith(args[length - 1])).collect(Collectors.toList());
-      } else {
-        return null;
-      }
-    } else {
-      return null;
     }
+    return null;
   }
 }
