@@ -21,7 +21,8 @@ public class PlayerProcess {
   public void addProcess(String uuid, ExplodeProcess process) {
     if (!this.isTaskRunning(uuid)) {
       this.processes.put(uuid, process);
-      process.getTask().runTaskLater(this.plugin, plugin.getConfig().getLong("process.delay"));
+      process.getTask().runTaskLater(this.plugin,
+              plugin.getConfig().getLong("process.delay") / 1000 * 20); // ticks
     }
   }
 
