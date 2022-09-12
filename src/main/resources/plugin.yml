@@ -2,3 +2,7 @@ name: CraftingExplode
 version: '${project.version}'
 main: ml.windleaf.craftingexplode.CraftingExplode
 api-version: 1.18
+commands:
+  craftingexplode:
+    usage: /craftingexplode help
+    aliases: [ce]
